@@ -15,7 +15,7 @@ Tool for Working with CUE+FLAC CD Images
   - [dBpoweramp](https://www.dbpoweramp.com/cd-ripper.htm)
 
 To create a cue sheet of an Audio CD, start EAC and select from the menu:
-Action -> Create CUE Sheet -> Current Gap Settings
+  - Action -> Create CUE Sheet -> Current Gap Settings
 
 For the flac files use naming scheme: %tracknr2% %title%
 
@@ -34,6 +34,19 @@ Favourite Artist - 2015 - Debut Album:
 └── Debut Album.cue
 ```
 
+## Building
+
+  - `git clone https://github.com/attilabogar/ecdtool.git`
+  - `git clone https://github.com/nguillaumin/jflac.git`
+  - `ln -s ../../jflac/jflac-codec/target/jflac-codec-1.4.0-SNAPSHOT.jar ecdtool/lib`
+  - `cd ecdtool`
+  - `mvn package`
+
+## Contributors
+
+  - Attila Bogár
+
 ## Credits
 
   - [open iconic](https://useiconic.com/open/)
+  - [jFLAC](http://jflac.sourceforge.net/)
