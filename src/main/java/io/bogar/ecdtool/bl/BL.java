@@ -409,11 +409,9 @@ public class BL {
 				ui.logToWindow("New character found: " + c, false);
 			}
 		}
-		// handle multiple dots
+		// handle multiple dots and last dot
 		String tmps = sb.toString();
-		String rets = tmps.replaceAll("[.]{3}", "");
-		tmps = rets;
-		rets = tmps.replaceAll("[.]+", ".");
+		String rets = tmps.replaceAll("[.]{3}", "").replaceAll("[.]+", ".").replaceAll("[.]$", "");
 		// drop ? and !
 		tmps = rets;
 		rets = tmps.replaceAll("[?]+", "").replaceAll("[!]+", "");
