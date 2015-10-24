@@ -226,6 +226,7 @@ public class CueSheet {
       if ( fuzzy && ! new File(flacFileName).isFile() ) {
 				if (flacs[i] != null) {
 					flacFileName = flacs[i].getCanonicalPath();
+					track[i].setFileName(flacs[i].getName().substring(0,flacs[i].getName().length()-5));
 				}
 			}
 			FileInputStream inputStream = new FileInputStream(new File(flacFileName));
