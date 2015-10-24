@@ -46,6 +46,9 @@ public class CueSheet {
 
 	private final static Pattern pFLACComment = Pattern.compile("^([^=]+)=(.*)$");
 
+  // fuzzy loads
+	private final static Pattern pFLACFile = Pattern.compile("^([0-9][0-9]) (.*).flac$");
+
 	/**
 	 * Constructor loads from file
 	 * @param f
@@ -192,9 +195,39 @@ public class CueSheet {
 		// LOADING FLAC FILES!
 		String dir = f.getParent();
 
+		File folder = new File(dir);
+
+		// getting list of flac files into an Arrays
+		File[] listOfFiles = folder.listFiles();
+		File[] flacs = new File[100];
+		// this drives behaviour - if fuzzy is false, no fuzzy loading is enabled
+    boolean fuzzy = true;
+		for (int i = 0; i < listOfFiles.length; i++) {
+			Matcher matcher = pFLACFile.matcher(listOfFiles[i].getName());
+			if (listOfFiles[i].isFile() && matcher.matches()) {
+				// get the file index
+				int ii;
+				try {
+				  ii = Integer.parseInt(matcher.group(1), 10);
+				} catch( NumberFormatException e) {
+					throw new Exception("flac index error - this shouldn't happen");
+				}
+				if (flacs[ii-1] == null) {
+					flacs[ii-1] = listOfFiles[i];
+				} else {
+					fuzzy = false;
+				}
+			}
+		}
+
 		for (int i = 0; i < totalTracks; i++) {
 			String flacFileName = dir + File.separatorChar
 					+ track[i].getFileName() + ".flac";
+      if ( fuzzy && ! new File(flacFileName).isFile() ) {
+				if (flacs[i] != null) {
+					flacFileName = flacs[i].getCanonicalPath();
+				}
+			}
 			FileInputStream inputStream = new FileInputStream(new File(flacFileName));
 			FLACDecoder dec = new FLACDecoder(inputStream);
 			Metadata[] md = dec.readMetadata();
