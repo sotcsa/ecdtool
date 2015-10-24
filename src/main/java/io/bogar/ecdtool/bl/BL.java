@@ -38,7 +38,8 @@ public class BL {
 	private final static String KEY_SAVE_MONOLITHIC = "saveMono";
 	private final static String KEY_MAIN_ACTION = "mainaction";
 
-	private static final Pattern CONSTANT_CHARS = Pattern.compile("[ !#&'()+,\\-.0-9A-Z_a-z]");
+	//private static final Pattern CONSTANT_CHARS = Pattern.compile("[ !#&'()+,\\-.0-9A-Z_a-z]");
+	private static final Pattern CONSTANT_CHARS = Pattern.compile("[ '(),\\-.0-9A-Z_a-z]");
 	private static final Pattern GENRE_HEAD = Pattern.compile("^GENRE.*$");
 
 	private String lastOpenDir;
@@ -171,7 +172,7 @@ public class BL {
 	        long totalSamples = 588*(xx.getBegin().getPosition()+xx.getLength().getPosition());
 					wavWriter = new WavWriter(bos, new Long(totalSamples), new Integer(2), new Integer(16), new Integer(44100));
 	        wavWriter.writeHeader();
-					
+
 	        // handle pregap
 	        int pregap = cueSheet.getTrack()[0].getBegin().getPosition();
 	        ByteData bd = null;
@@ -318,7 +319,34 @@ public class BL {
 		if (cueSheet==null)
 			return;
 		// translating cue's name itself
-		String toTrans = cueSheet.isEdited() ? cueSheet.getNewCueName() : cueSheet.getCueName();
+		// get album name from first track
+		StringBuilder sb = new StringBuilder();
+		NGComment ngc = cueSheet.getTrack()[0].getComment();
+		String s = ngc.getCommentPlus("album", concatWith);
+		if (s!=null) {
+			sb.append(s);
+		}
+		s = ngc.getCommentPlus("disctotal", concatWith);
+		if (s!=null) {
+			int disctotal=Integer.parseInt(s,10);
+			int discnumber=0;
+			if (disctotal != 1) {
+				s = ngc.getCommentPlus("discnumber", concatWith);
+				if (s!=null) {
+					discnumber=Integer.parseInt(s,10);
+				}
+				sb.append(" - CD");
+				String format = "%d";
+				if (disctotal>99) {
+					format = "%03d";
+				} else if (disctotal>9){
+					format = "%02d";
+				}
+				sb.append(String.format(format, discnumber));
+			}
+		}
+
+		String toTrans = cueSheet.isEdited() ? cueSheet.getNewCueName() : sb.toString();
 		cueSheet.setNewCueName(translate(toTrans));
 
 		// calculate proposed filenames
@@ -327,10 +355,8 @@ public class BL {
 			if (cueSheet.getTrack()[i].isEdited()) {
 				toTrans = cueSheet.getTrack()[i].getNewFileName();
 			} else {
-				NGComment ngc = cueSheet.getTrack()[i].getComment();
-
-				StringBuilder sb = new StringBuilder();
-				String s;
+				ngc = cueSheet.getTrack()[i].getComment();
+				sb = new StringBuilder();
 
 				s = ngc.getCommentPlus("tracknumber", concatWith);
 				if (s != null) {
@@ -383,7 +409,15 @@ public class BL {
 				ui.logToWindow("New character found: " + c, false);
 			}
 		}
-		return sb.toString();
+		// handle multiple dots
+		String tmps = sb.toString();
+		String rets = tmps.replaceAll("[.]{3}", "");
+		tmps = rets;
+		rets = tmps.replaceAll("[.]+", ".");
+		// drop ? and !
+		tmps = rets;
+		rets = tmps.replaceAll("[?]+", "").replaceAll("[!]+", "");
+		return rets;
 	}
 
 	public Character[] getNewCharacters() {
