@@ -5,11 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.kc7bfi.jflac.FLACDecoder;
-import org.kc7bfi.jflac.PCMProcessor;
-import org.kc7bfi.jflac.metadata.StreamInfo;
-import org.kc7bfi.jflac.util.ByteData;
-import org.kc7bfi.jflac.util.WavWriter;
+import org.jflac.FLACDecoder;
+import org.jflac.PCMProcessor;
+import org.jflac.metadata.StreamInfo;
+import org.jflac.util.ByteData;
+import org.jflac.util.WavWriter;
 
 public class FLACDumper  {
 	
