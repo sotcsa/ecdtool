@@ -37,14 +37,13 @@ Favourite Artist - 2015 - Debut Album:
 ## Building
 
   - `git clone https://github.com/attilabogar/ecdtool.git`
-  - `git clone https://github.com/nguillaumin/jflac.git`
-  - `ln -s ../../jflac/jflac-codec/target/jflac-codec-1.4.0-SNAPSHOT.jar ecdtool/lib`
   - `cd ecdtool`
   - `mvn package`
 
 ## Contributors
 
   - Attila Bogár
+  - Csaba Soti
 
 ## Credits
 

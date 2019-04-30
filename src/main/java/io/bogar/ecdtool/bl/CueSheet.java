@@ -15,11 +15,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.kc7bfi.jflac.FLACDecoder;
-import org.kc7bfi.jflac.metadata.Metadata;
-import org.kc7bfi.jflac.metadata.StreamInfo;
-import org.kc7bfi.jflac.metadata.VorbisComment;
-import org.kc7bfi.jflac.metadata.VorbisString;
+import org.jflac.FLACDecoder;
+import org.jflac.metadata.Metadata;
+import org.jflac.metadata.StreamInfo;
+import org.jflac.metadata.VorbisComment;
+import org.jflac.metadata.VorbisString;
 
 public class CueSheet {
 
