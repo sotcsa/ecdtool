@@ -13,9 +13,11 @@ hs_err_pid*
 
 # maven target
 /target
+/ecdtool/target/
 !/lib/.gitkeep
 /lib/*
 /bin/
 /.settings/
 /.classpath
 /.project
+/build/

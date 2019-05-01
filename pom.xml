@@ -2,14 +2,20 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.bogar.ecdtool</groupId>
-  <artifactId>ecdtool</artifactId>
-  <packaging>jar</packaging>
+  <artifactId>ecdtool-base</artifactId>
+  <packaging>pom</packaging>
   <version>0.4-SNAPSHOT</version>
-  <name>eCD Tool</name>
-  <url>http://maven.apache.org</url>
+  <name>eCD Tool Base</name>
+
+  <modules>
+    <module>jflac</module>
+    <module>ecdtool</module>
+  </modules>
+
   <properties>
     <jdk.version>1.8</jdk.version>
   </properties>
+
   <build>
     <plugins>
       <plugin>
@@ -17,28 +23,6 @@
           <artifactId>maven-install-plugin</artifactId>
           <version>2.4</version>
       </plugin>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <mainClass>io.bogar.ecdtool.main.ECDTool</mainClass>
-            </manifest>
-          </archive>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-        </configuration>
-      </plugin> 
     </plugins>
   </build>
   <dependencies>
@@ -47,12 +31,6 @@
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
-    </dependency>
-	<!-- https://mvnrepository.com/artifact/org.jflac/jflac-codec -->
-    <dependency>
-	    <groupId>org.jflac</groupId>
-	    <artifactId>jflac-codec</artifactId>
-	    <version>1.5.2</version>
     </dependency>
   </dependencies>
 </project>
