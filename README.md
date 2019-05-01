@@ -38,7 +38,9 @@ Favourite Artist - 2015 - Debut Album:
 
   - `git clone https://github.com/attilabogar/ecdtool.git`
   - `cd ecdtool`
-  - `mvn package`
+  - `git sumbodule init`
+  - `git sumbodule update`
+  - `mvn package -DskipTests`
 
 ## Contributors
 

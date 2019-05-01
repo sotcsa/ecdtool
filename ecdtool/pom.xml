@@ -5,9 +5,10 @@
   <name>eCD Tool</name>
 
   <parent>
-    <artifactId>ecdtool</artifactId>
+    <artifactId>ecdtool-base</artifactId>
     <groupId>io.bogar.ecdtool</groupId>
     <version>0.4-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
 
   <build>
