@@ -15,8 +15,8 @@ import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import java.util.regex.Pattern;
 
-import org.kc7bfi.jflac.util.ByteData;
-import org.kc7bfi.jflac.util.WavWriter;
+import org.jflac.util.ByteData;
+import org.jflac.util.WavWriter;
 
 public class BL {
 

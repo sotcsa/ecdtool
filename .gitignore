@@ -15,3 +15,7 @@ hs_err_pid*
 /target
 !/lib/.gitkeep
 /lib/*
+/bin/
+/.settings/
+/.classpath
+/.project
